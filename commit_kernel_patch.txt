@@ -1,0 +1,73 @@
+*************************************************************************************
+如何向linux社区提交patch
+*************************************************************************************
+1.Git Email 配置
+sudo apt install git-email
+2.配置 git-email 使用 Gmail 邮箱服务
+vim ~/.gitconfig
+
+
+[sendemail]
+from = Guowei Du <duguowei@xiaomi.com>
+smtpserver = smtp.gmail.com
+smtpuser = duguowei@gmail.com
+smtpencryption = tls
+#smtppass = your passwd
+#smtppass = wzxcfoeusbswlxqa(此处的密码是gmail邮箱的step2方式验证密码，如果#注释掉，则每次手动输入即可)
+chainreplyto = false
+smtpserverport = 587
+
+3.取代码并建立一个新的分支
+git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+git pull
+git branch develop
+git checkout develop
+
+4.提交修改
+git add .
+git commit -s -v
+
+mm: fix some errors
+ 
+Why I do these changes and how I do it.
+ 
+Signed-off-by: My Name <my_email@gmail.com>
+
+第一部分是 short description，以子系统名打头，比如 mm，注意分号后面加个空格，不知道子系统名的可以看看你修改的这个文件的修改历史，看看之前的开发者是怎么写的。这一部分需要使用一句简短的话描述你所做的修改，要让维护者一眼就看出这个 Patch 大概干了什么事。
+第二部分是 the body of your patch，这一部分要详细的解释你为何要做这个修改，以及怎么做的，注意时态用现在时，语态用主动形式。
+第三部分是之前的 -s 参数自动加上的，不用管。
+必须要注意的是，这三部分之间都要有一个空行隔开。
+如果 commit 之后还想修改 Commit 信息的话需要使用命令 git commit --amend -v。
+
+5.生成 Patch
+git format-patch master
+这条命令是以 master 分支为基准，检测你在当前 develop 分支所做的修改并生成 Patch 文件
+[haolee@haolee linux]$ ls *.patch
+0001-mm-fix-some-errors.patch
+
+6.检查你的 Patch 格式
+运行以下命令检查你的 Patch 格式有没有问题，要做到 0 errors, 0 warnings
+./scripts/checkpatch.pl 0001-mm-fix-some-errors.patch
+
+7.发送Patch给上游维护者
+./scripts/get_maintainer.pl -f include/linux/gfp.h
+
+8.测试发送
+git send-email --to duguowei@xiaomi.com 0001-mm-fix-some-errors.patch
+
+9.正式发送
+
+git send-email \
+--cc-cmd='./scripts/get_maintainer.pl --norolestats 0001-mm-fix-some-errors.patch' \
+0001-mm-fix-some-errors.patch
+
+git send-email --to akpm@linux-foundation.org \
+--cc alexander.h.duyck@intel.com \
+--cc mhocko@suse.com --cc vbabka@suse.cz \
+--cc mgorman@suse.de \
+--cc l.stach@pengutronix.de \
+--cc vdavydov.dev@gmail.com \
+--cc linux-mm@kvack.org \
+--cc linux-kernel@vger.kernel.org \
+--cc my_email@gmail.com \
+0001-mm-fix-some-errors.patch
