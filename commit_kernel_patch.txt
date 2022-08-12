@@ -42,7 +42,7 @@ Signed-off-by: My Name <my_email@gmail.com>
 5.生成 Patch
 git format-patch master
 这条命令是以 master 分支为基准，检测你在当前 develop 分支所做的修改并生成 Patch 文件
-[haolee@haolee linux]$ ls *.patch
+[duguowei@duguowei]$ ls *.patch
 0001-mm-fix-some-errors.patch
 
 6.检查你的 Patch 格式
@@ -53,7 +53,7 @@ git format-patch master
 ./scripts/get_maintainer.pl -f include/linux/gfp.h
 
 8.测试发送
-git send-email --to duguowei@xiaomi.com 0001-mm-fix-some-errors.patch
+git send-email --to duguowei@gmail.com 0001-mm-fix-some-errors.patch
 
 9.正式发送
 
@@ -69,7 +69,7 @@ git send-email --to akpm@linux-foundation.org \
 --cc vdavydov.dev@gmail.com \
 --cc linux-mm@kvack.org \
 --cc linux-kernel@vger.kernel.org \
---cc my_email@gmail.com \
+--cc duguowei@gmail.com \
 0001-mm-fix-some-errors.patch
 
 10.输入邮箱密码
