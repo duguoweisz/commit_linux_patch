@@ -8,9 +8,9 @@ vim ~/.gitconfig
 
 
 [sendemail]
-from = Guowei Du <duguowei@xiaomi.com>
+from = Guowei Du <duguoweisz@gmail.com>
 smtpserver = smtp.gmail.com
-smtpuser = duguowei@gmail.com
+smtpuser = duguoweisz@gmail.com
 smtpencryption = tls
 #smtppass = your passwd
 #smtppass = wzxcfoeusbswlxqa(此处的密码是gmail邮箱的step2方式验证密码，如果#注释掉，则每次手动输入即可)
