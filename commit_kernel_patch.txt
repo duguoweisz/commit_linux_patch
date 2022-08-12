@@ -71,3 +71,10 @@ git send-email --to akpm@linux-foundation.org \
 --cc linux-kernel@vger.kernel.org \
 --cc my_email@gmail.com \
 0001-mm-fix-some-errors.patch
+
+10.输入邮箱密码
+这一步也就是~/.gitconfig中的那个密码
+
+11.到个人的邮箱中去查看发送的邮件
+
+12.maintainer等会回复等等
